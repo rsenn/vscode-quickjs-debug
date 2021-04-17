@@ -1,20 +1,20 @@
 {
 	"name": "quickjs-debug",
 	"displayName": "QuickJS Debugger",
-	"version": "0.0.15",
-	"publisher": "koush",
+	"version": "0.0.15-rsenn",
+	"publisher": "rsenn",
 	"description": "Debug the QuickJS runtime.",
 	"author": {
-		"name": "Koushik Dutta",
-		"email": "koushd@gmail.com"
+		"name": "Roman Senn ",
+		"email": "roman.l.senn@gmail.com"
 	},
 	"license": "MIT",
 	"keywords": [
 		"multi-root ready"
 	],
 	"engines": {
-		"vscode": "^1.33.0",
-		"node": "^10.15.1"
+		"vscode": "^1.1.37",
+		"node": "^15"
 	},
 	"icon": "images/quickjs-debug-icon.png",
 	"categories": [
@@ -34,7 +34,7 @@
 		"tslint": "tslint ./src/**/*.ts",
 		"watch": "tsc -w -p ./src",
 		"postinstall": "node ./node_modules/vscode/bin/install",
-		"package": "vsce package",
+		"package": "vsce package --no-yarn",
 		"publish": "vsce publish"
 	},
 	"dependencies": {
@@ -44,14 +44,14 @@
 		"vscode-debugadapter": "^1.41.1"
 	},
 	"devDependencies": {
-		"@types/node": "10.12.12",
 		"@types/mocha": "5.2.7",
-		"typescript": "3.5.3",
+		"@types/node": "10.12.12",
 		"mocha": "6.2.0",
-		"vscode": "1.1.36",
-		"vscode-debugadapter-testsupport": "1.37.0",
 		"tslint": "5.18.0",
-		"vsce": "1.66.0"
+		"typescript": "3.5.3",
+		"vsce": "^1.87",
+		"vscode": "1.1.36",
+		"vscode-debugadapter-testsupport": "1.37.0"
 	},
 	"main": "./out/extension",
 	"activationEvents": [

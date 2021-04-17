@@ -16,6 +16,7 @@ interface CommonArguments extends SourcemapArguments {
 	args?: string[];
 	cwd?: string;
 	runtimeExecutable: string;
+	runtimeArgs?: string[];
 	mode: string;
 	address: string;
 	port: number;
@@ -257,8 +258,14 @@ export class QuickJSDebugSession extends SourcemapSession {
 			}
 		}
 
-		let qjsArgs = (args.args || []).slice();
+
+		let qjsArgs = typeof args.args == 'string' ? [args.args] : (args.args || []).slice();
 		qjsArgs.unshift(args.program);
+		if(Array.isArray(args.runtimeArgs))
+			qjsArgs.splice(0,0, ...args.runtimeArgs);
+		qjsArgs.splice(0,0,...args.runtimeExecutable.split(/\s+/g));
+
+		this.log(`qjsArgs = ${qjsArgs}`);
 
 		if (this._supportsRunInTerminalRequest && (this._console === 'externalTerminal' || this._console === 'integratedTerminal')) {
 
@@ -283,8 +290,9 @@ export class QuickJSDebugSession extends SourcemapSession {
 				cwd,
 				env,
 			};
+			const runtime = qjsArgs.shift() || '';
 
-			const nodeProcess = CP.spawn(args.runtimeExecutable, qjsArgs, options);
+			const nodeProcess = CP.spawn(runtime, qjsArgs, options);
 			nodeProcess.on('error', (error) => {
 				// tslint:disable-next-line:no-bitwise
 				this.sendErrorResponse(response, 2017, `Cannot launch debug target (${error.message}).`);
