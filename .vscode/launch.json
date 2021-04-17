@@ -32,14 +32,14 @@
 			"type": "quickjs",
 			"request": "launch",
 			"program": "${workspaceFolder}/src/tests/data/test.js",
-			"runtimeExecutable": "/Volumes/Dev/quickjs/qjs-debug"
+			"runtimeExecutable": "/usr/local/bin/qjs"
 		},
 		{
 			"name": "Attach QuickJS (connect)",
 			"type": "quickjs",
 			"request": "launch",
 			"program": "${workspaceFolder}/src/tests/data/test.js",
-			"runtimeExecutable": "/Volumes/Dev/quickjs/qjs-debug",
+			"runtimeExecutable": "/usr/local/bin/qjs",
 			"localRoot": "${workspaceFolder}/src/tests/data/",
 			"mode": "connect",
 			"attach": true,
@@ -53,7 +53,7 @@
 			"port": 5555,
 			"program": "${workspaceFolder}/src/tests/data/test.js",
 			"localRoot": "${workspaceFolder}/src/tests/data/",
-			"runtimeExecutable": "/Volumes/Dev/quickjs/qjs-debug"
+			"runtimeExecutable": "/usr/local/bin/qjs"
 		}
 	],
 	"compounds": [
