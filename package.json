@@ -1,12 +1,12 @@
 {
 	"name": "quickjs-debug",
 	"displayName": "QuickJS Debugger",
-	"version": "0.0.15",
-	"publisher": "koush",
+	"version": "0.0.16-rsenn",
+	"publisher": "rsenn",
 	"description": "Debug the QuickJS runtime.",
 	"author": {
-		"name": "Koushik Dutta",
-		"email": "koushd@gmail.com"
+		"name": "Roman Senn",
+		"email": "roman.l.senn@gmail.com"
 	},
 	"license": "MIT",
 	"keywords": [
@@ -49,7 +49,7 @@
 		"mocha": "6.2.0",
 		"tslint": "5.18.0",
 		"typescript": "3.5.3",
-		"vsce": "1.66.0",
+		"vsce": "^1.88.0",
 		"vscode": "https://github.com/Microsoft/vscode-extension-vscode.git",
 		"vscode-debugadapter-testsupport": "1.37.0"
 	},

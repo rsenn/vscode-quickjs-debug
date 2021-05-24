@@ -15,6 +15,7 @@ interface CommonArguments extends SourcemapArguments {
 	program: string;
 	args?: string[];
 	cwd?: string;
+	env?: any;
 	runtimeExecutable: string;
 	runtimeArgs?: string[];
 	mode: string;
@@ -235,7 +236,8 @@ export class QuickJSDebugSession extends SourcemapSession {
 		this._commonArgs.localRoot = args.localRoot;
 		this.closeServer();
 
-		let env = {};
+		let env = args.env || {};
+
 		try {
 			this.beforeConnection(env);
 		}
@@ -266,6 +268,7 @@ export class QuickJSDebugSession extends SourcemapSession {
 		qjsArgs.splice(0,0,...args.runtimeExecutable.split(/\s+/g));
 
 		this.log(`qjsArgs = ${qjsArgs}`);
+		this.log(`env = {\n${Object.keys(env).map((k) => `  ${k}=${env[k]}`).join('\n')}\n}`);
 
 		if (this._supportsRunInTerminalRequest && (this._console === 'externalTerminal' || this._console === 'integratedTerminal')) {
 
@@ -344,7 +347,8 @@ export class QuickJSDebugSession extends SourcemapSession {
 			let port = (<AddressInfo>this._server.address()).port;
 			this.log(`QuickJS Debug Port: ${port}`);
 
-			env['QUICKJS_DEBUG_ADDRESS'] = `localhost:${port}`;
+			if(!('QUICKJS_DEBUG_ADDRESS' in env))
+				env['QUICKJS_DEBUG_ADDRESS'] = `localhost:${port}`;
 		}
 	}
 
@@ -451,7 +455,8 @@ export class QuickJSDebugSession extends SourcemapSession {
 				breakpoints: breakpoints.length ? breakpoints : undefined,
 			},
 		};
-		this.sendThreadMessage(envelope);
+			this.log(`sendBreakpointMessage: ${JSON.stringify(envelope)}`);
+	this.sendThreadMessage(envelope);
 	}
 
 	protected async setBreakPointsRequest(response: DebugProtocol.SetBreakpointsResponse, args: DebugProtocol.SetBreakpointsArguments) {
@@ -460,6 +465,7 @@ export class QuickJSDebugSession extends SourcemapSession {
 		};
 
 		this.logTrace(`setBreakPointsRequest: ${JSON.stringify(args)}`);
+		this.log(`setBreakPointsRequest: ${JSON.stringify(args)}`);
 
 		if (!args.source.path) {
 			this.sendResponse(response);
